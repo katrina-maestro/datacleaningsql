@@ -1,4 +1,5 @@
 Layoff Data Cleaning and Standardization
+
 Objective
 The objective of this project is to clean, standardize, and prepare the layoff data from the world_layoffs.layoffs table for further analysis. This includes removing duplicate records, standardizing data formats, handling null values, and ensuring consistency in the dataset. Accurate and clean data is essential for reliable analysis and decision-making, especially when dealing with sensitive information like layoffs which can have significant social and economic impacts.
 
