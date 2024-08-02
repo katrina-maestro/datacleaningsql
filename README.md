@@ -1,51 +1,50 @@
-Layoff Data Cleaning and Standardization
+# Layoff Data Cleaning and Standardization
 
-Objective
+## Introduction
 The objective of this project is to clean, standardize, and prepare the layoff data from the world_layoffs.layoffs table for further analysis. This includes removing duplicate records, standardizing data formats, handling null values, and ensuring consistency in the dataset. Accurate and clean data is essential for reliable analysis and decision-making, especially when dealing with sensitive information like layoffs which can have significant social and economic impacts.
 
-Steps and Processes
-1. Removing Duplicate Data
-Create a Staging Table:
-A staging table layoffs_staging is created as a copy of the original layoffs table to perform operations without altering the original data.
+## Objectives
+Remove duplicate entries from the layoff data.
+Standardize company, industry, location, and country names.
+Convert date formats to a standardized SQL datetime format.
+Address and populate null values in critical columns.
+Remove unnecessary columns and rows to streamline the dataset.
+Methodology
+Dependencies: Ensure the necessary SQL environment is set up and accessible.
 
-Identify and Mark Duplicates:
-Use the ROW_NUMBER() window function to identify duplicate records based on key columns: company, location, industry, total_laid_off, date, stage, country, and funds_raised_millions.
+## Methodology:
 
-Remove Duplicates:
-Delete duplicate rows from the staging table.
+Creating Staging Table:
+Create a staging table similar to the original "layoffs" table.
+Insert data from the original table into the staging table for testing and processing.
 
-2. Standardizing Data
-Trim Company Names:
-Remove leading and trailing spaces from company names.
+Removing Duplicates:
+Use Common Table Expressions (CTEs) to identify and remove duplicate rows based on key columns (company, location, industry, total_laid_off, date, stage, country, funds_raised_millions).
+Insert the cleaned data into a new table, "layoffs_staging2".
 
-Standardize Industry Names:
-Normalize industry names, specifically ensuring all variations of 'Crypto' are unified.
+Standardizing Data:
+Trim whitespace from company names.
+Standardize industry names by consolidating variations (e.g., different variations of "Crypto").
+Standardize country names to avoid discrepancies (e.g., "United States" and "United States.").
+Convert date columns to a standard SQL datetime format.
 
-Normalize Country Names:
-Correct inconsistencies in country names, such as removing trailing periods.
+Addressing Null Values:
+Identify and populate null values in the "total_laid_off" and "industry" columns by cross-referencing other rows with the same company name.
 
-Standardize Date Format:
-Convert date strings to SQL DATE format.
+Cleaning Up:
+Remove rows with no layoff data.
+Drop unnecessary columns (e.g., "row_num") from the final table.
 
-3. Handling Null Values
-Identify and Update Null Values:
-Check and update null or empty fields in critical columns like industry.
+## Results
+Duplicate Removal: Successfully identified and removed duplicate rows, ensuring unique entries in the dataset.
+Data Standardization: Company, industry, location, and country names were standardized, improving consistency.
+Date Conversion: Date columns were successfully converted to SQL datetime format.
+Null Value Handling: Null values in critical columns were addressed, improving data completeness.
+Cleanup: Unnecessary rows and columns were removed, streamlining the dataset for analysis.
 
-Populate Missing Industry Values:
-Use existing data to fill in missing industry values for companies based on available information.
-
-4. Remove Unnecessary Data
-Delete Uninformative Rows:
-Remove rows where both total_laid_off and percentage_laid_off are null, as they provide no useful data.
-
-Drop Unnecessary Columns:
-Remove the row_num column after ensuring duplicates are managed.
-
-General Results
-Upon completing the data cleaning and standardization process, the layoff data is significantly improved in terms of quality and consistency. The removal of duplicate records ensures that analyses are based on unique and accurate entries. Standardizing the data formats for company names, industry names, country names, and dates reduces variability and enhances the reliability of the dataset. Handling null values and removing uninformative rows ensure that the dataset is as complete and informative as possible. These improvements facilitate more robust and precise analyses, leading to better insights and decision-making based on the layoff data.
-
-By following these steps, we ensure that the layoff data is clean, standardized, and ready for detailed analysis. The processed data will be free from duplicates, consistent in format, and devoid of unnecessary records, making it suitable for further analytical processes and decision-making.
-
+## Usage Tips
+Ensure access to the SQL environment with the necessary permissions to create tables and run update queries.
+Use the provided SQL scripts to replicate the ETL process on similar datasets.
 
 
 
